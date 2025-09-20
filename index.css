@@ -1,0 +1,49 @@
+/* Creating a flex container */
+.flex-container {
+    display: flex; /* Enables flexbox layout */
+    justify-content: space-between; /* Distributes items with space between them */
+    align-items: center; /* Vertically aligns items in the center */
+    height: 150px; /* Sets a fixed height for the container */
+    background-color: #eee;
+    padding: 10px;
+}
+
+/* Styling flex items */
+.flex-item {
+    background-color: #007bff;
+    color: white;
+    padding: 15px;
+    margin: 5px;
+}
+/* Styling a div element */
+.container {
+    width: 80%; /* Sets the width to 80% of its parent */
+    margin: 0 auto; /* Centers the div horizontally */
+    padding: 20px; /* Adds padding inside the div */
+    border: 1px solid #ccc; /* Adds a light gray border */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+body {
+    font-family: Arial, sans-serif; /* Sets the default font */
+    background-color: #f0f0f0; /* Light gray background */
+    color: #333; /* Dark gray text color */
+    margin: 20px; /* Adds margin around the entire page content */
+}
+
+/* Styling headings */
+h1 {
+    color: #007bff; /* Blue heading color */
+    text-align: center; /* Centers the heading text */
+}
+
+/* Styling paragraphs */
+p {
+    line-height: 1.6; /* Increases line spacing for readability */
+}
+/* Styles applied to all screen sizes */
+.header {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
