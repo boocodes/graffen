@@ -36,17 +36,7 @@ void CssModule::parseCss(GuiStorageModule rootGui, std::string filePath)
 	cssFileContent = removeCssComments(cssFileContent);
 	cssFileContent = removeWhiteblanks(cssFileContent);
 	std::vector<cssRuleStruct> cssRules = separateCssRules(cssFileContent);
-	std::cout << "Start:" << std::endl;
-	for (size_t i = 0; i < cssRules.size(); i++)
-	{
-		std::cout << "_____________________________________" << std::endl;
-		std::cout << "Tag: " << cssRules.at(0).selector << std::endl;
-		std::cout << "Declaration:" << std::endl;
-		for (size_t j = 0; j < cssRules.at(i).declaration.size(); j++)
-		{
-			std::cout << "Property: <" << cssRules.at(i).declaration.at(j).property << "> Value: <" << cssRules.at(i).declaration.at(j).value << ">" << std::endl;
-		}
-	}
+	applyCss(cssRules, rootGui);
 }
 
 
@@ -116,6 +106,10 @@ static std::vector<cssRuleStruct> separateCssRules(std::string inputString)
 		std::string selector = inputString.substr(0, startPos);
 		std::vector<cssDeclarationBlockStruct> declarationBlock = separateDeclarationBlock(inputString.substr(startPos + 1, endPos - startPos - 1));
 		cssRuleStruct cssRuleBuffer;
+		if (selector.at(0) == '.')
+		{
+			selector.replace(0, 1, "");
+		}
 		cssRuleBuffer.selector = selector;
 		cssRuleBuffer.declaration = declarationBlock;
 		resultRules.push_back(cssRuleBuffer);
@@ -125,5 +119,14 @@ static std::vector<cssRuleStruct> separateCssRules(std::string inputString)
 }
 static void applyCss(std::vector<cssRuleStruct> cssRules, GuiStorageModule rootGui)
 {
-
+	for (size_t i = 0; i < cssRules.size(); i++)
+	{
+		for (size_t j = 0; j < rootGui.tagsList.size(); j++)
+		{
+			if (rootGui.tagsList.at(j)->className == cssRules.at(i).selector)
+			{
+				std::cout << "success!\n";
+			}
+		}
+	}
 }

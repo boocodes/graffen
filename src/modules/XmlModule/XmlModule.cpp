@@ -35,6 +35,8 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
             int yPos = element->IntAttribute("y", 0);
             int zIndex = element->IntAttribute("z", 0);
             int fontSize = element->IntAttribute("fontSize", 16);
+            const char* classAttr = element->Attribute("class");
+
 
             const char* textColorAttribute = element->Attribute("color");
             glm::vec3 textColor = textColorAttribute ? UtilModule::hexToVec3(textColorAttribute) : glm::vec3(0.0f, 0.0f, 0.0f);
@@ -46,6 +48,10 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
             std::string text = textContent ? textContent : "";
 
             TextTag* textTag = new TextTag(xPos, yPos, textColor, fontSize, font, text, zIndex);
+            if (classAttr != nullptr)
+            {
+                textTag->className = classAttr;
+            }
             textTag->parentTag = parent; // Устанавливаем родителя
             tagsList.push_back(textTag);
 
@@ -61,8 +67,14 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
             int zIndex = element->IntAttribute("z", 0);
             int height = element->IntAttribute("height", 0);
             int width = element->IntAttribute("width", 0);
+            const char* classAttr = element->Attribute("class");
+
 
             DivTag* divTag = new DivTag(xPos, yPos, zIndex, width, height);
+            if (classAttr != nullptr)
+            {
+                divTag->className = classAttr;
+            }
             divTag->parentTag = parent; // Устанавливаем родителя
             tagsList.push_back(divTag);
 
