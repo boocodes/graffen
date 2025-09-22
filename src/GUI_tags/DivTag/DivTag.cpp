@@ -9,6 +9,7 @@ DivTag::DivTag(int xPos, int yPos, int zIndex, int width, int height)
 	this->yPos = yPos;
 	this->zIndex = zIndex;
 	this->width = width;
+	this->visibility = true;
 	this->height = height;
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);

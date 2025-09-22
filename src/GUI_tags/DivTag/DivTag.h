@@ -15,6 +15,15 @@ public:
 	std::vector<RootTag*> children;
 	int xPos, yPos, zIndex;
 	int height, width;
+	
+	std::string display;
+	float opacity = 1.0f;
+	bool visibility = true;
+	std::string flexDirection,
+		justifyContent,
+		flexWrap,
+		alignItems,
+		position;
 	glm::vec4 borderRadius;
 	glm::vec3 backgroundColor;
 	unsigned int VAO, VBO, texture;

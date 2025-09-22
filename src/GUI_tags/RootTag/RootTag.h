@@ -11,7 +11,6 @@ public:
 	std::string className = "";
 	int xPos, yPos;
 	bool hovered;
-	bool display;
 	std::function<void()> onClick = 0;
 	std::function<void()> onHover = 0;
 	RootTag* parentTag;

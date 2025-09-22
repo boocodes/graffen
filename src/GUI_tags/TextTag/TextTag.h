@@ -15,6 +15,7 @@ public:
 	std::string fontName;
 	float coords[12];
 	FontModule font;
+	bool visibility = true;
 	TextTag(int xPos, int yPos, glm::vec3 color, int fontSize, std::string fontName, std::string textDisplay, int zIndex);
 	void draw();
 	void changeText(std::string newText);

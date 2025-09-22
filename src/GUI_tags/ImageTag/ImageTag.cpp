@@ -9,7 +9,7 @@ ImageTag::ImageTag(std::string imagePath, int xPos, int yPos, int zIndex)
 	this->yPos = yPos;
 	this->zIndex = zIndex;
 	this->id = 1;
-	this->display = true;
+	this->visibility = true;
 	LoadedTexture loadedTexture(loadTexture(imagePath));
 	this->texture = loadedTexture.texture;
 	this->width = loadedTexture.width;
@@ -48,7 +48,7 @@ ImageTag::ImageTag(std::string imagePath, int xPos, int yPos, int zIndex)
 
 void ImageTag::draw()
 {
-	if (this->display)
+	if (this->visibility)
 	{
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
@@ -62,7 +62,7 @@ void ImageTag::draw()
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glEnable(GL_DEPTH_TEST);
-	}
+	}	
 }
 
 bool ImageTag::clickCheck(int mouseX, int mouseY)

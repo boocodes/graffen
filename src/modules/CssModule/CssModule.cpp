@@ -125,8 +125,18 @@ static void applyCss(std::vector<cssRuleStruct> cssRules, GuiStorageModule rootG
 		{
 			if (rootGui.tagsList.at(j)->className == cssRules.at(i).selector)
 			{
-				std::cout << "success!\n";
+				// styles
+				if (rootGui.tagsList.at(j)->tagType == "Div")
+				{
+					for (size_t c = 0; i < cssRules.at(i).declaration.size(); c++)
+					{
+						if (cssRules.at(i).declaration.at(c).property == "display")
+						{
+							
+						}
+					}
+				}
 			}
 		}
 	}
-}
+} 

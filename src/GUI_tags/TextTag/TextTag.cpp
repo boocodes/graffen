@@ -11,14 +11,18 @@ TextTag::TextTag(int xPos, int yPos, glm::vec3 color, int fontSize, std::string 
 	this->fontName = fontName;
 	this->textDisplay = textDisplay;
 	this->zIndex = zIndex;
+	this->visibility = true;
 
 	this->font.init(this->fontName, this->fontSize);
 }
 
 
 void TextTag::draw()
-{
-	this->font.draw_text(this->textDisplay, this->xPos, this->yPos, this->color);
+{	
+	if(this->visibility)
+	{
+		this->font.draw_text(this->textDisplay, this->xPos, this->yPos, this->color);
+	}
 }
 
 
