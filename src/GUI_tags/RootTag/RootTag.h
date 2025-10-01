@@ -1,6 +1,13 @@
 #pragma once
 #include <string>
 #include <functional>
+#include <vector>
+#include <types/types.h>
+
+
+
+
+
 
 class RootTag
 {
@@ -19,4 +26,5 @@ public:
 	virtual void draw() = 0;
 	virtual bool hoverCheck(int mouseX, int mouseY) = 0;
 	virtual bool clickCheck(int mouseX, int mouseY) = 0;
+	virtual void applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow) = 0;
 };

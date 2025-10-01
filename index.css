@@ -1,28 +1,9 @@
-/* Creating a flex container */
-.flex-container{display:flex;justify-content:space-between;}
-.flex-item {
-    background-color: #007bff;
-    color: white;
-}
-.container {
-    width: 80%; /* Sets the width to 80% of its parent */
-    margin: 0 auto; /* Centers the div horizontally */
-}
-body {
-    font-family: Arial, sans-serif; /* Sets the default font */
-    background-color: #f0f0f0; /* Light gray background */
-}
-h1 {
-    color: #007bff; /* Blue heading color */
-    text-align: center; /* Centers the heading text */
-}
-p {
-    line-height: 1.6; /* Increases line spacing for readability */
-}
-.header {
-    background-color: #333;
-    color: white;
-}
 .Wrapper{
-    text-decoration-style: dashed;
+    width: 300px;
+    height: 150px;
+    background-color: #af2e2e;
+    z-index: 3;
+    left: 300px;
+    top: 200px;
+    position: absolute;
 }

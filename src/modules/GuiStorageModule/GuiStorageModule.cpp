@@ -12,9 +12,12 @@ void GuiStorageModule::render()
 
 
 
-GuiStorageModule::GuiStorageModule()
+GuiStorageModule::GuiStorageModule(std::string xmlFilePath)
 {
-
+	this->xmlFilePath = xmlFilePath;
+	XmlModule::parseXml(this->xmlFilePath, this->tagsList, this->cssFilePath);
+	std::cout << "css path: " << this->cssFilePath << std::endl;
+	CssModule::parseCss(this->tagsList, this->cssFilePath, this->layoutRowsCount, this->pxLayoutLastRow);
 }
 
 

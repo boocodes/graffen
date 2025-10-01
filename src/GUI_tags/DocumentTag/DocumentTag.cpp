@@ -1,8 +1,7 @@
 #include "DocumentTag.h"
 
 
-DocumentTag::DocumentTag(float version, std::string author)
+DocumentTag::DocumentTag()
 {
-	this->version = version;
-	this->author = author;
+	
 }

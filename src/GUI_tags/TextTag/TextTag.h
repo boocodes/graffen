@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
 class TextTag : public RootTag
 {
 public:
@@ -23,5 +24,6 @@ public:
 	void changeFontSize(int newFontSize);
 	bool hoverCheck(int mouseX, int mouseY);
 	bool clickCheck(int mouseX, int mouseY);
+	void applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow);
 	void center();
 };

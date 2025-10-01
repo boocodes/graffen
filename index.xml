@@ -1,6 +1,5 @@
 <Document style="index.css">
 	<Div class="Wrapper">
-		<Image x ="80" y="0" z="1" src="assets/logo.png"/>
-		<Text class="flex-item" x="80" y="60" z="1" color="#000000" font="assets/fonts/Roboto-Bold.ttf">Privet, mir!</Text>
+		
 	</Div>
 </Document>

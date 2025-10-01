@@ -34,13 +34,11 @@ public:
 	void draw();
 	bool hoverCheck(int mouseX, int mouseY);
 	bool clickCheck(int mouseX, int mouseY);
+	void applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow);
 	void addChild(RootTag* tag);
 
 	
 	void center();
-	
 
-	// flex box types and methods
-	bool flexContainerFlag = false;
 	
 };

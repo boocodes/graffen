@@ -7,28 +7,31 @@ XmlModule::XmlModule()
 }
 
 
-std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
+void XmlModule::parseXml(const std::string& xmlPath, std::vector<RootTag*>& tagsListRoot, std::string& cssFilePath)
 {
     std::vector<RootTag*> tagsList;
-
+   
     tinyxml2::XMLDocument doc;
     tinyxml2::XMLError result = doc.LoadFile(xmlPath.c_str());
 
     if (result != tinyxml2::XML_SUCCESS)
     {
-        return tagsList;
+        return;
     }
 
     tinyxml2::XMLElement* root = doc.FirstChildElement("Document");
     if (!root)
     {
-        return tagsList;
+        return;
     }
+
+    cssFilePath = root->Attribute("style");
     
     std::function<void(tinyxml2::XMLElement*, DivTag*)> processElement;
     processElement = [&](tinyxml2::XMLElement* element, DivTag* parent) {
         const char* tagName = element->Value();
 
+ 
         if (strcmp(tagName, "Text") == 0)
         {
             int xPos = element->IntAttribute("x", 0);
@@ -52,6 +55,7 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
             {
                 textTag->className = classAttr;
             }
+            
             textTag->parentTag = parent; // Устанавливаем родителя
             tagsList.push_back(textTag);
 
@@ -96,15 +100,22 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
             int xPos = element->IntAttribute("x", 0);
             int yPos = element->IntAttribute("y", 0);
             int zIndex = element->IntAttribute("z", 0);
+            const char* classAttr = element->Attribute("class");
+
 
             const char* srcAttr = element->Attribute("src");
             std::string src = srcAttr ? srcAttr : "";
+
 
             if (!src.empty())
             {
                 ImageTag* imageTag = new ImageTag(src, xPos, yPos, zIndex);
                 imageTag->parentTag = parent; // Устанавливаем родителя
                 tagsList.push_back(imageTag);
+                if (classAttr != nullptr)
+                {
+                    imageTag->className = classAttr;
+                }
 
                 // Если родитель существует, добавляем тег как дочерний
                 if (parent) {
@@ -112,6 +123,7 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
                 }
             }
         }
+        
         };
 
     // Обрабатываем все элементы верхнего уровня
@@ -121,6 +133,8 @@ std::vector<RootTag*> XmlModule::parseXml(const std::string& xmlPath)
     {
         processElement(element, nullptr); // nullptr означает корневой уровень
     }
+    
+    tagsListRoot = tagsList;
 
-    return tagsList;
+   
 }

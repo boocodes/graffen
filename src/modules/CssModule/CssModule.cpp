@@ -5,23 +5,13 @@
 #include <regex>
 
 
-struct cssDeclarationBlockStruct
-{
-	std::string property;
-	std::string value;
-};
 
-struct cssRuleStruct
-{
-	std::string selector;
-	std::vector<cssDeclarationBlockStruct> declaration;
-};
 
 static std::string removeCssComments(std::string cssContent);
 static std::string readFile(std::string filePath);
 static std::string removeWhiteblanks(std::string inputString);
 static std::vector<cssRuleStruct> separateCssRules(std::string inputString);
-static void applyCss(std::vector<cssRuleStruct> cssRules, GuiStorageModule rootGui);
+static void applyCss(std::vector<cssRuleStruct> cssRules, std::vector<RootTag*>& tagsList, int& layoutRowsCount, int& pxLayoutLastRow);
 
 
 
@@ -30,13 +20,13 @@ static void applyCss(std::vector<cssRuleStruct> cssRules, GuiStorageModule rootG
 
 
 
-void CssModule::parseCss(GuiStorageModule rootGui, std::string filePath)
+void CssModule::parseCss(std::vector<RootTag*>& tagsList, std::string filePath, int& layoutRowsCount, int& pxLayoutLastRow)
 {
-	std::string cssFileContent = readFile(filePath);
-	cssFileContent = removeCssComments(cssFileContent);
-	cssFileContent = removeWhiteblanks(cssFileContent);
-	std::vector<cssRuleStruct> cssRules = separateCssRules(cssFileContent);
-	applyCss(cssRules, rootGui);
+		std::string cssFileContent = readFile(filePath);
+		cssFileContent = removeCssComments(cssFileContent);
+		cssFileContent = removeWhiteblanks(cssFileContent);
+		std::vector<cssRuleStruct> cssRules = separateCssRules(cssFileContent);
+	applyCss(cssRules, tagsList, layoutRowsCount, pxLayoutLastRow);
 }
 
 
@@ -117,26 +107,17 @@ static std::vector<cssRuleStruct> separateCssRules(std::string inputString)
 	}
 	return resultRules;
 }
-static void applyCss(std::vector<cssRuleStruct> cssRules, GuiStorageModule rootGui)
+static void applyCss(std::vector<cssRuleStruct> cssRules, std::vector<RootTag*>& tagsList, int& layoutRowsCount, int& pxLayoutLastRow)
 {
+	
 	for (size_t i = 0; i < cssRules.size(); i++)
 	{
-		for (size_t j = 0; j < rootGui.tagsList.size(); j++)
+		for (size_t j = 0; j < tagsList.size(); j++)
 		{
-			if (rootGui.tagsList.at(j)->className == cssRules.at(i).selector)
+			if (tagsList.at(j)->className == cssRules.at(i).selector)
 			{
-				// styles
-				if (rootGui.tagsList.at(j)->tagType == "Div")
-				{
-					for (size_t c = 0; i < cssRules.at(i).declaration.size(); c++)
-					{
-						if (cssRules.at(i).declaration.at(c).property == "display")
-						{
-							
-						}
-					}
-				}
+				tagsList.at(j)->applyCss(cssRules.at(i).declaration, layoutRowsCount, pxLayoutLastRow);
 			}
 		}
 	}
-} 
+}

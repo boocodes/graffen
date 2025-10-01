@@ -21,7 +21,7 @@ void TextTag::draw()
 {	
 	if(this->visibility)
 	{
-		this->font.draw_text(this->textDisplay, this->xPos, this->yPos, this->color);
+		this->font.draw_text(this->textDisplay, this->xPos, HEIGHT - this->yPos, this->color);
 	}
 }
 
@@ -65,4 +65,10 @@ void TextTag::center()
 	{
 		this->xPos = (parentTag->width - this->width) / 2;
 	}	
+}
+
+
+void TextTag::applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow)
+{
+	std::cout << "from Text" << std::endl;
 }

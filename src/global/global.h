@@ -12,8 +12,12 @@ extern int MOUSE_Y_POS;
 
 extern glm::mat4 imageProjection;
 extern glm::mat4 fontProjection;
+extern glm::mat4 pixelPlacementProjection;
+
+
 
 extern ShaderModule imageShader;
 extern ShaderModule fontShader;
+extern ShaderModule pixelPlacementShader;
 
 void initShaders();

@@ -103,3 +103,7 @@ void ImageTag::center()
 }
 
 
+void ImageTag::applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow)
+{
+	std::cout << "from Image" << std::endl;
+}

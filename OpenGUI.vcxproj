@@ -140,6 +140,7 @@
     <ClCompile Include="src\modules\ShaderModule\ShaderModule.cpp" />
     <ClCompile Include="src\modules\UtilModule\UtilModule.cpp" />
     <ClCompile Include="src\modules\XmlModule\XmlModule.cpp" />
+    <ClCompile Include="src\types\types.cpp" />
     <ClCompile Include="src\utils\utils.cpp" />
     <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="src\modules\ShaderModule\ShaderModule.h" />
     <ClInclude Include="src\modules\UtilModule\UtilModule.h" />
     <ClInclude Include="src\modules\XmlModule\XmlModule.h" />
+    <ClInclude Include="src\types\types.h" />
     <ClInclude Include="src\utils\utils.h" />
     <ClInclude Include="stb_image.h" />
   </ItemGroup>

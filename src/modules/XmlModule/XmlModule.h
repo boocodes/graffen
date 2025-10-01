@@ -8,11 +8,12 @@
 #include <GUI_tags/ImageTag/ImageTag.h>
 #include <GUI_tags/DivTag/DivTag.h>
 #include <modules/CssModule/CssModule.h>
+#include <GUI_tags/DocumentTag/DocumentTag.h>
 
 
 class XmlModule
 {
 public:
 	XmlModule();
-	static std::vector<RootTag*> parseXml(const std::string& xmlPath);
+	static void parseXml(const std::string& xmlPath, std::vector<RootTag*>& tagsList, std::string& cssFilePath);
 ;};

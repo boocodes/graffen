@@ -32,32 +32,7 @@ int main(void)
 
     initShaders();
 
-    GuiStorageModule gui;
-    gui.tagsList = XmlModule::parseXml("index.xml");
-    CssModule::parseCss(gui, "index.css");
-    // Проверяем, что теги были загружены
-    //if (!gui.tagsList.empty()) {
-    //    std::cout << "Loaded " << gui.tagsList.size() << " tags" << std::endl;
-
-    //    // Проверяем parentTag для каждого тега
-    //    for (auto tag : gui.tagsList) {
-    //        if (tag->parentTag) {
-    //            std::cout << "Tag has parent: " << tag->parentTag->tagType << std::endl;
-    //            if (tag->parentTag->tagType == "Div") {
-    //                DivTag* divParent = dynamic_cast<DivTag*>(tag->parentTag);
-    //                if (divParent) {
-    //                    std::cout << "Parent div height: " << divParent->height << std::endl;
-    //                }
-    //            }
-    //        }
-    //        else {
-    //            std::cout << "Tag has no parent (root level)" << std::endl;
-    //        }
-    //    }
-    //}
-    //else {
-    //    std::cout << "No tags loaded from XML" << std::endl;
-    //}
+    GuiStorageModule gui("index.xml");
 
     while (!glfwWindowShouldClose(window))
     {
