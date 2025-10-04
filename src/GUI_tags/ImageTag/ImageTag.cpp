@@ -8,7 +8,7 @@ ImageTag::ImageTag(std::string imagePath, int xPos, int yPos, int zIndex)
 	this->xPos = xPos;
 	this->yPos = yPos;
 	this->zIndex = zIndex;
-	this->id = 1;
+	this->innerId = 1;
 	this->visibility = true;
 	LoadedTexture loadedTexture(loadTexture(imagePath));
 	this->texture = loadedTexture.texture;

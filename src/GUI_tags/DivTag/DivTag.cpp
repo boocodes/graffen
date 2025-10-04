@@ -1,38 +1,20 @@
 #include "DivTag.h"
 
 
+void initStyle();
+
+
+
 DivTag::DivTag(int xPos, int yPos, int zIndex, int width, int height)
 {
 	this->tagType = "Div";
-	this->borderRadius = glm::vec4(0, 0, 0, 0);
+	this->borderRadius = 0.0f;
 	this->xPos = xPos;
 	this->yPos = yPos;
 	this->zIndex = zIndex;
 	this->width = width;
 	this->visibility = true;
 	this->height = height;
-	this->position = "block";
-	glGenVertexArrays(1, &this->VAO);
-	glGenBuffers(1, &this->VBO);
-	glBindVertexArray(this->VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-	if (this->position == "block")
-	{
-
-	}
-	float coords[12] = {
-		this->xPos, this->yPos, this->zIndex,
-		this->xPos + this->width, this->yPos, this->zIndex,
-		this->xPos + this->width, this->yPos - this->height, this->zIndex,
-		this->xPos, this->yPos - this->height, this->zIndex,
-	};
-	for (size_t i = 0; i < 12; i++)
-	{
-		this->coords[i] = coords[i];
-	}
-	glBufferData(GL_ARRAY_BUFFER, sizeof(this->coords), this->coords, GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
-	glEnableVertexAttribArray(0);
 }
 
 void DivTag::draw()
@@ -45,6 +27,16 @@ void DivTag::draw()
 		pixelPlacementShader.use();
 		pixelPlacementShader.setMat4("projection", pixelPlacementProjection);
 		pixelPlacementShader.setVec3("color", glm::vec3(0, 1, 1));
+		pixelPlacementShader.setFloat("radius", this->borderRadius);
+		pixelPlacementShader.setFloat("smoothness", 1.0f);
+		
+		float minX = this->xPos;
+		float maxX = this->xPos + this->width;
+		float minY = this->yPos - this->height; // Y уменьшается вниз
+		float maxY = this->yPos; // Y увеличивается вверх
+
+		pixelPlacementShader.setVec2("boundsMin", glm::vec2(minX, minY));
+		pixelPlacementShader.setVec2("boundsMax", glm::vec2(maxX, maxY));
 		
 		glBindVertexArray(this->VAO);
 		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
@@ -113,27 +105,102 @@ void DivTag::applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int
 		std::cout << "occuried at " << cssDeclaration.at(i).property << std::endl;
 		if (cssDeclaration.at(i).property == "display")
 		{
-			this->display = cssDeclaration.at(i).value;
+			if (cssDeclaration.at(i).value == "block")
+			{
+				this->display = CssDisplay::Block;
+			}
+			else if(cssDeclaration.at(i).value == "flex")
+			{
+				this->display = CssDisplay::Flex;
+			}
+			
 		}
 		else if (cssDeclaration.at(i).property == "align-items")
 		{
-			this->alignItems = cssDeclaration.at(i).value;
+			if (cssDeclaration.at(i).value == "center")
+			{
+				this->alignItems = CssAlignItems::Center;
+			}
+			else if (cssDeclaration.at(i).value == "flex-end")
+			{
+				this->alignItems = CssAlignItems::FlexEnd;
+			}
+			else if (cssDeclaration.at(i).value == "flex-start")
+			{
+				this->alignItems = CssAlignItems::FlexStart;
+			}
+			else if (cssDeclaration.at(i).value == "stretch")
+			{
+				this->alignItems = CssAlignItems::Stretch;
+			}
 		}
 		else if (cssDeclaration.at(i).property == "flex-direction")
 		{
-			this->flexDirection = cssDeclaration.at(i).value;
+			if (cssDeclaration.at(i).value == "row")
+			{
+				this->flexDirection = CssFlexDirection::Row;
+			}
+			else if (cssDeclaration.at(i).value == "row-reverse")
+			{
+				this->flexDirection = CssFlexDirection::RowReverse;
+			}
+			else if (cssDeclaration.at(i).value == "column")
+			{
+				this->flexDirection = CssFlexDirection::Column;
+			}
+			else if (cssDeclaration.at(i).value == "column-reverse")
+			{
+				this->flexDirection = CssFlexDirection::ColumnReverse;
+			}
 		}
 		else if (cssDeclaration.at(i).property == "justify-content")
 		{		
-			this->justifyContent = cssDeclaration.at(i).value;
+			if (cssDeclaration.at(i).value == "center")
+			{
+				this->justifyContent = CssJustifyContent::Center;
+			}
+			else if (cssDeclaration.at(i).value == "flex-start")
+			{
+				this->justifyContent = CssJustifyContent::FlexStart;
+			}
+			else if (cssDeclaration.at(i).value == "flex-end")
+			{
+				this->justifyContent = CssJustifyContent::FlexEnd;
+			}
+			else if (cssDeclaration.at(i).value == "space-between")
+			{
+				this->justifyContent = CssJustifyContent::SpaceBetween;
+			}
+			else if (cssDeclaration.at(i).value == "space-around")
+			{
+				this->justifyContent = CssJustifyContent::SpaceAround;
+			}
+			else if (cssDeclaration.at(i).value == "space-evenly")
+			{
+				this->justifyContent = CssJustifyContent::SpaceEvenly;
+			}
 		}
 		else if (cssDeclaration.at(i).property == "flex-wrap")
 		{
-			this->flexWrap = cssDeclaration.at(i).value;
+			if (cssDeclaration.at(i).value == "wrap")
+			{
+				this->flexWrap = CssFlexWrap::Wrap;
+			}
+			else if (cssDeclaration.at(i).value == "nowrap")
+			{
+				this->flexWrap = CssFlexWrap::NoWrap;
+			}
 		}
 		else if (cssDeclaration.at(i).property == "position")
 		{
-			this->position = cssDeclaration.at(i).value;
+			if (cssDeclaration.at(i).value == "absolute")
+			{
+				this->position = CssPosition::Absolute;
+			}
+			else if (cssDeclaration.at(i).value == "relative")
+			{
+				this->position = CssPosition::Relative;
+			}
 		}
 		else if (cssDeclaration.at(i).property == "height")
 		{
@@ -159,9 +226,13 @@ void DivTag::applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int
 		{
 			this->backgroundColor = UtilModule::hexToVec3(cssDeclaration.at(i).value);
 		}
+		else if (cssDeclaration.at(i).property == "border-radius")
+		{
+			this->borderRadius = std::stof(cssDeclaration.at(i).value);
+		}
 	}
 	// absolute position by the x, y on the whole window
-	if (this->position == "absolute")
+	if (this->position == CssPosition::Absolute)
 	{
 		glGenVertexArrays(1, &this->VAO);
 		glGenBuffers(1, &this->VBO);
@@ -180,6 +251,10 @@ void DivTag::applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int
 		glBufferData(GL_ARRAY_BUFFER, sizeof(this->coords), this->coords, GL_STATIC_DRAW);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, (void*)0);
 		glEnableVertexAttribArray(0);
+	}
+	else if (this->position == CssPosition::Relative)
+	{
+
 	}
 	// relative position 
 }

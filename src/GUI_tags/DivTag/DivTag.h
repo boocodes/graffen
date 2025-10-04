@@ -7,24 +7,22 @@
 #include <global/global.h>
 #include <glm/glm.hpp>
 #include <vector>
+#include <types/types.h>
 
 
 class DivTag : public RootTag
 {
 public:
 	std::vector<RootTag*> children;
-	int xPos, yPos, zIndex;
-	int height, width;
-	
-	std::string display;
+	CssDisplay display;
 	float opacity = 1.0f;
 	bool visibility = true;
-	std::string flexDirection,
-		justifyContent,
-		flexWrap,
-		alignItems,
-		position;
-	glm::vec4 borderRadius;
+	CssFlexDirection flexDirection;
+	CssJustifyContent justifyContent;
+	CssFlexWrap flexWrap;
+	CssAlignItems alignItems;
+	CssPosition position;
+	float borderRadius;
 	glm::vec3 backgroundColor;
 	unsigned int VAO, VBO, texture;
 	std::string backgroundImage;
@@ -32,6 +30,7 @@ public:
 	~DivTag();
 	float coords[12];
 	void draw();
+	int getPositionToChildren();
 	bool hoverCheck(int mouseX, int mouseY);
 	bool clickCheck(int mouseX, int mouseY);
 	void applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow);

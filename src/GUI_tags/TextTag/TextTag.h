@@ -23,6 +23,7 @@ public:
 	void changeFont(std::string newFont);
 	void changeFontSize(int newFontSize);
 	bool hoverCheck(int mouseX, int mouseY);
+	int getPositionToChildren() { return 0; };
 	bool clickCheck(int mouseX, int mouseY);
 	void applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow);
 	void center();

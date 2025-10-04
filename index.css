@@ -1,9 +1,10 @@
 .Wrapper{
-    width: 300px;
+    width: 150px;
     height: 150px;
     background-color: #af2e2e;
     z-index: 3;
     left: 300px;
     top: 200px;
     position: absolute;
+    border-radius: 0.3;
 }

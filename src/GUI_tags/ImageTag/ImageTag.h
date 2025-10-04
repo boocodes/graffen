@@ -13,6 +13,7 @@ public:
 	ImageTag(std::string imagePath, int xPos, int yPos, int zIndex);
 	void draw();
 	bool hoverCheck(int mouseX, int mouseY);
+	int getPositionToChildren() { return 0; };
 	bool clickCheck(int mouseX, int mouseY);
 	void applyCss(std::vector<cssDeclarationBlockStruct> cssDeclaration, int& layoutRowsCount, int& pxLayoutLastRow);
 	void center();
